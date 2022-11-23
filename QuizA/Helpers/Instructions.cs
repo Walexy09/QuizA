@@ -11,8 +11,59 @@ namespace QuizA
 
     public class Instructions
     {
+        //Added this method on 23/11/22: Used to validate input from users. If user supplies invalid entry, it will keep
+        //prompting them to enter they enter the right value before they can proceed. 
+        static public int ValidateUserInputs(
+            String userInput,
+            int minAllowedValue,
+            String[] itemArray,
+            String arrayName
+            )
+        
+        {
+            int validatedOutput;
+
+            Helpers.ColoredMessage colored = new Helpers.ColoredMessage();
+
+            //This checks if the input is not empty
+            while ((!int.TryParse(userInput, out validatedOutput)) || (String.IsNullOrEmpty(userInput)))
+            {    
+                colored.printColoredMessages($"\n You supplied a non-existent {arrayName} number or invalid entry" +
+                       $"\n Please select a valid {arrayName} number from the above listed and  try again  !!", ConsoleColor.Red, false);
+
+                userInput = Console.ReadLine();
+
+            }
+
+            //This checks if the chosen user value is within the allowable range or not.
+            //If not, it asks the user to rechoose his choice!
+            while ((validatedOutput < minAllowedValue) || (validatedOutput > itemArray.Length))
+            {
+                colored.printColoredMessages("\n You supplied an out of range value, " +
+                    $"please reselect your {arrayName} choice!:   ", ConsoleColor.Red, false);
+                //this asks the user to re-enter his choice if its not within accepted range
+                if (int.TryParse(Console.ReadLine(), out validatedOutput))
+
+                {
+                    //This code breaks out of the loop if an out of range value is selected and repeats the outer code.
+                    if ((validatedOutput < minAllowedValue) && (validatedOutput > itemArray.Length))
+                    {
+                        string Mssg = $"ERROR!!!! You selected: {validatedOutput}, which is not a valid entry, choose again!!";
+
+                        colored.printColoredMessages(Mssg, ConsoleColor.Red);
+
+                        break;
+                    }
+                   
+
+                }
+
+            }
+
+            return validatedOutput;
 
 
+        }
 
         static public void QuizInstructions()
         {
@@ -32,7 +83,7 @@ namespace QuizA
 
             colored.printColoredMessages("\n***************************************************Instructions********************************************* ");
             colored.printColoredMessages(message);
-            colored.printColoredMessages(requiresInternet.ToUpper(), ConsoleColor.Magenta);
+            colored.printColoredMessages(requiresInternet.ToUpper(), ConsoleColor.DarkBlue);
 
             String[] category = { "General Knowledge", "Entertainment:Books", "Entertainment: Film", "Entertainment: Music",
                 "Entertainment: Musicals & Theatres", "Entertainment: Television", "Entertainment: Video Games",
@@ -79,7 +130,9 @@ namespace QuizA
             //it must be a valid entry and must not be an empty character
             try
             {
-                while ( (!int.TryParse(categorySelected, out validatedCategoryNumber) ) || (String.IsNullOrEmpty(categorySelected))  ) 
+               // categorySelected = Console.ReadLine();
+
+                /*while ((!int.TryParse(categorySelected, out validatedCategoryNumber)) || (String.IsNullOrEmpty(categorySelected)))
                 {
 
                     colored.printColoredMessages("\n You supplied an non-existent category number or invalid entry" +
@@ -87,35 +140,37 @@ namespace QuizA
 
                     categorySelected = Console.ReadLine();
 
-                }
+                }*/
 
-                while ( (validatedCategoryNumber < minCategorySelected) || (validatedCategoryNumber > category.Length)) 
-                {
-                   
-                    colored.printColoredMessages("\n You supplied an out of range value, " +
-                        "please reselect your category choice!  ", ConsoleColor.Red, false);
+                /* while ((validatedCategoryNumber < minCategorySelected) || (validatedCategoryNumber > category.Length))
+                 {
 
-                    if ( int.TryParse(Console.ReadLine(), out validatedCategoryNumber) )
-                    
-                    {
+                     colored.printColoredMessages("\n You supplied an out of range value, " +
+                         "please reselect your category choice!  ", ConsoleColor.Red, false);
 
-                        if ( (validatedCategoryNumber < minCategorySelected) && (validatedCategoryNumber > category.Length) )
-                       
-                        {
-                            string Mssg = $"You selected: {category[validatedCategoryNumber - 1]} Equivalet to value number: {categoryNoValue}";
+                     if (int.TryParse(Console.ReadLine(), out validatedCategoryNumber))
 
-                            colored.printColoredMessages(Mssg, ConsoleColor.Green);
+                     {
 
-                            break;
-                        }
-                       
-                    }
+                         if ((validatedCategoryNumber < minCategorySelected) && (validatedCategoryNumber > category.Length))
 
-                }
+                         {
+                             string Mssg = $"You selected: {category[validatedCategoryNumber - 1]} Equivalet to value number: {categoryNoValue}";
+
+                             colored.printColoredMessages(Mssg, ConsoleColor.Green);
+
+                             break;
+                         }
+
+                     }
+
+                 }*/
+
+                validatedCategoryNumber =  ValidateUserInputs(categorySelected, minCategorySelected, category, "category");
 
 
                 if (validatedCategoryNumber >= minCategorySelected && validatedCategoryNumber <= category.Length)
-                    {
+                {
                     for (int cat = 0; cat < category.Length; cat++)
                     {
                         for (int catNo = 0; catNo < categoryNo.Length; catNo++)
@@ -143,9 +198,9 @@ namespace QuizA
                 ///////////////////////////////////////////////////////////////////////////////////
                 /////For Question Type selected//////////////////////////////////////////
 
-                colored.printColoredMessages("\n Please select your question type from amonsgt the below: !  ");
+                colored.printColoredMessages("\n Please select your question type from amongst the below: !  ");
 
-                for (int questionType = 0; questionType < questionTypes.Length; questionType++) 
+                for (int questionType = 0; questionType < questionTypes.Length; questionType++)
                 {
 
                     string indexMessage = $"({questionType + 1}). {questionTypes[questionType]} : ";
@@ -155,7 +210,7 @@ namespace QuizA
                 }
 
                 string selectedQuestionType = Console.ReadLine();
-                
+
 
                 while ((!int.TryParse(selectedQuestionType, out questionTypeSelected)) || (String.IsNullOrEmpty(selectedQuestionType)))
                 {
