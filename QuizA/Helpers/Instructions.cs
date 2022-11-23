@@ -186,11 +186,6 @@ namespace QuizA
 
                 }
 
-                else
-                {
-                    colored.printColoredMessages("You supplied an non-existent category number, please try again!!", ConsoleColor.Red, false);
-                }
-
                 string successMssg = $"You selected: {category[validatedCategoryNumber - 1]} Equivalet to value number: {categoryNoValue}";
 
                 colored.printColoredMessages(successMssg, ConsoleColor.Green);
@@ -211,8 +206,13 @@ namespace QuizA
 
                 string selectedQuestionType = Console.ReadLine();
 
+                questionTypeSelected = ValidateUserInputs(selectedQuestionType, minCategorySelected, questionTypes, "questionType");
 
-                while ((!int.TryParse(selectedQuestionType, out questionTypeSelected)) || (String.IsNullOrEmpty(selectedQuestionType)))
+                string successQuestionTypeMssg = $"You selected: {questionTypes[questionTypeSelected - 1]} Question Type!! ";
+
+                colored.printColoredMessages(successQuestionTypeMssg, ConsoleColor.Green);
+
+                /*while ((!int.TryParse(selectedQuestionType, out questionTypeSelected)) || (String.IsNullOrEmpty(selectedQuestionType)))
                 {
 
                     colored.printColoredMessages("\n You supplied an non-existent Question type number or invalid entry" +
@@ -220,9 +220,9 @@ namespace QuizA
 
                     selectedQuestionType = Console.ReadLine();
 
-                }
+                }*/
 
-                while ((questionTypeSelected < minCategorySelected) || (questionTypeSelected > questionTypes.Length))
+                /*while ((questionTypeSelected < minCategorySelected) || (questionTypeSelected > questionTypes.Length))
                 {
 
                     colored.printColoredMessages("\n You supplied an out of range value, " +
@@ -244,7 +244,7 @@ namespace QuizA
 
                     }
 
-                }
+                }*/
 
 
 
