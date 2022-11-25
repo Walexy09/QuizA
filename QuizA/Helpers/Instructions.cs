@@ -99,14 +99,16 @@ namespace QuizA
 
             String[] difficulties = { "Easy", "Medium", "Hard" };
 
-            String[] questionTypes = { "Multiple Choice", "True/False" };
+            String[] questionTypes = { "Multiple Choice", "True/False", "Any" };
 
             const int minCategorySelected = 1;
 
             string categorySelected;
             int validatedCategoryNumber;
             int categoryNoValue = 0;
-            int amount = 20;
+            int questionAmount = 20;
+            const int minQuestionNo = 20;
+            const int maxQuestionNo = 50;
             int difficultyLevelSelected;
             int questionTypeSelected;
 
@@ -130,41 +132,7 @@ namespace QuizA
             //it must be a valid entry and must not be an empty character
             try
             {
-               // categorySelected = Console.ReadLine();
-
-                /*while ((!int.TryParse(categorySelected, out validatedCategoryNumber)) || (String.IsNullOrEmpty(categorySelected)))
-                {
-
-                    colored.printColoredMessages("\n You supplied an non-existent category number or invalid entry" +
-                           "\n Please select a valid category number from the above listed and  try again  !!", ConsoleColor.Red, false);
-
-                    categorySelected = Console.ReadLine();
-
-                }*/
-
-                /* while ((validatedCategoryNumber < minCategorySelected) || (validatedCategoryNumber > category.Length))
-                 {
-
-                     colored.printColoredMessages("\n You supplied an out of range value, " +
-                         "please reselect your category choice!  ", ConsoleColor.Red, false);
-
-                     if (int.TryParse(Console.ReadLine(), out validatedCategoryNumber))
-
-                     {
-
-                         if ((validatedCategoryNumber < minCategorySelected) && (validatedCategoryNumber > category.Length))
-
-                         {
-                             string Mssg = $"You selected: {category[validatedCategoryNumber - 1]} Equivalet to value number: {categoryNoValue}";
-
-                             colored.printColoredMessages(Mssg, ConsoleColor.Green);
-
-                             break;
-                         }
-
-                     }
-
-                 }*/
+              
 
                 validatedCategoryNumber =  ValidateUserInputs(categorySelected, minCategorySelected, category, "category");
 
@@ -193,7 +161,7 @@ namespace QuizA
                 ///////////////////////////////////////////////////////////////////////////////////
                 /////For Question Type selected//////////////////////////////////////////
 
-                colored.printColoredMessages("\n Please select your question type from amongst the below: !  ");
+                colored.printColoredMessages("\n Please select your question type from amongst the below !  ");
 
                 for (int questionType = 0; questionType < questionTypes.Length; questionType++)
                 {
@@ -212,45 +180,90 @@ namespace QuizA
 
                 colored.printColoredMessages(successQuestionTypeMssg, ConsoleColor.Green);
 
-                /*while ((!int.TryParse(selectedQuestionType, out questionTypeSelected)) || (String.IsNullOrEmpty(selectedQuestionType)))
+                ///////////////////////////////////////////////////////////////////////////////////
+                /////For Question Difficulty level selected//////////////////////////////////////////
+                ///
+
+                colored.printColoredMessages("\n Please select the level of question difficulty you would like to answer, i.e," +
+                    "\n how difficult should the quiz questions be?  :");
+
+                for (int difficulty = 0; difficulty < difficulties.Length; difficulty++)
                 {
 
-                    colored.printColoredMessages("\n You supplied an non-existent Question type number or invalid entry" +
-                           "\n Please select a valid question type number from the above listed and  try again  !!", ConsoleColor.Red, false);
+                    string indexMessage = $"({difficulty + 1}). {difficulties[difficulty]} : ";
 
-                    selectedQuestionType = Console.ReadLine();
+                    colored.printColoredMessages(indexMessage, ConsoleColor.Yellow, false);
 
-                }*/
+                }
+                string selectedQuestionDifficulty = Console.ReadLine();
 
-                /*while ((questionTypeSelected < minCategorySelected) || (questionTypeSelected > questionTypes.Length))
+                difficultyLevelSelected = ValidateUserInputs(selectedQuestionDifficulty, minCategorySelected, difficulties, "Difficulty Level");
+
+                string successQuestionDifficultyMssg = $"You selected: {difficulties[difficultyLevelSelected - 1]} Difficulty Level!! ";
+
+                colored.printColoredMessages(successQuestionDifficultyMssg, ConsoleColor.Green);
+
+
+                ///////////////////////////////////////////////////////////////////////////////////
+                /////For Question Number of Questions to answe selected, defaults to 20//////////////////////////////////////////
+                ///
+
+
+                colored.printColoredMessages("\n Please select the number of questions difficulty you would like to answer, i.e," +
+                    "\n how many quiz questions be presented to you. Maximum is 50 while minimun should be 20?  :", ConsoleColor.White, false);
+
+                int validatedAmountOfQuestions;
+
+                string userSelectedQuizNo = Console.ReadLine();
+
+                //while supplied input is not an interger or its empty, it will ask input to be supplied again!
+                while ( !(int.TryParse(userSelectedQuizNo, out validatedAmountOfQuestions))
+                    && String.IsNullOrEmpty(userSelectedQuizNo) || ( validatedAmountOfQuestions < minQuestionNo) 
+                    || (validatedAmountOfQuestions > maxQuestionNo)
+                    ) 
                 {
+                    string Mssg = $"ERROR!!!! You selected: {validatedAmountOfQuestions} questions to answer, which is not a valid entry, choose again!!";
 
-                    colored.printColoredMessages("\n You supplied an out of range value, " +
-                        "please reselect your question type choice!  ", ConsoleColor.Red, false);
+                    string questionMaxMssg = $"You selected {validatedAmountOfQuestions} questions, {maxQuestionNo} is the maximum allowed!! ";
 
-                    if (int.TryParse(Console.ReadLine(), out questionTypeSelected))
+                    string questionMinMssg = $"You selected {validatedAmountOfQuestions} questions, {minQuestionNo} is the mimimum allowed!! ";
 
+                    string selectedShownMssg;
+
+                    if (validatedAmountOfQuestions < minQuestionNo)
                     {
 
-                        if ((questionTypeSelected < minCategorySelected) && (questionTypeSelected > category.Length))
+                        selectedShownMssg = questionMinMssg;
 
-                        {
-                            string Mssg = $"You selected: {questionTypes[questionTypeSelected - 1]} ";
+                        colored.printColoredMessages(selectedShownMssg, ConsoleColor.Red,false);
+                    }
+                    else 
+                    {
+                        selectedShownMssg = questionMaxMssg;
 
-                            colored.printColoredMessages(Mssg, ConsoleColor.Green);
-
-                            break;
-                        }
+                        colored.printColoredMessages(selectedShownMssg, ConsoleColor.Red, false);
 
                     }
 
-                }*/
+                    colored.printColoredMessages(Mssg, ConsoleColor.Red, false);
+
+                    userSelectedQuizNo = Console.ReadLine();
+
+                }
+
+                questionAmount = validatedAmountOfQuestions;
+
+                string successQuestionAmountMssg = $"You selected: {questionAmount} Number of Questions to answer:  ";
+
+                colored.printColoredMessages(successQuestionAmountMssg, ConsoleColor.Green, false);
 
 
-
-
-
-
+                colored.printColoredMessages("\n Summary of your selections are as follows :", ConsoleColor.DarkBlue);
+                
+                colored.printColoredMessages($"(1).Question Category selected : {category[validatedCategoryNumber - 1]}", ConsoleColor.Green, false);
+                colored.printColoredMessages($"(2).Question Type selected : {questionTypes[questionTypeSelected - 1]}", ConsoleColor.Green, false);
+                colored.printColoredMessages($"(3).Question difficulty selected : {difficulties[difficultyLevelSelected - 1]}", ConsoleColor.Green, false);
+                colored.printColoredMessages($"(4).Amount of questions to answer : {questionAmount}", ConsoleColor.Green, false);
 
 
 
@@ -261,6 +274,10 @@ namespace QuizA
             {
                 colored.printColoredMessages($"{error.Message}!", ConsoleColor.Red, false);
             }
+
+
+
+            Console.ReadKey();
 
 
 
