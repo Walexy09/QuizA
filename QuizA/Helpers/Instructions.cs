@@ -9,6 +9,10 @@ namespace QuizA
     //This class contains the instruction for playing the quiz game
     //This function prints the instruction for the Quiz Game.
 
+    /// <summary>
+    /// https://opentdb.com/api.php?amount=10&category=22&difficulty=easy&type=multiple
+    /// </summary>
+
     public class Instructions
     {
         //Added this method on 23/11/22: Used to validate input from users. If user supplies invalid entry, it will keep
@@ -78,8 +82,8 @@ namespace QuizA
                 $" \n\n You would be presented with some options to select from, these determines the type of quiz questions you get." +
                 $" In turn, a number of question is returned to you after which you must type start to begin the question with timer." +
                 $" You must answer within a specified time limit." +
-                $"\n\n The user must select: \n (i). A Question Category \n (ii). Difficulty Level \n (iii). Question Type" +
-                $" i.e: multiple choice or True/False based questions \n (iv).the number of questions to answer!       ";
+                $"\n\n The user must select: \n (i) A Question Category \n (ii) Difficulty Level \n (iii) Question Type" +
+                $" i.e: multiple choice or True/False based questions \n (iv) The number of questions to answer!       ";
 
             colored.printColoredMessages("\n***************************************************Instructions********************************************* ");
             colored.printColoredMessages(message);
