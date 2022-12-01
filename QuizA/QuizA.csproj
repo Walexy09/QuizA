@@ -53,6 +53,7 @@
     <Compile Include="Helpers\Instructions.cs" />
     <Compile Include="HttpCalls\HttpApi.cs" />
     <Compile Include="models\Quiz.cs" />
+    <Compile Include="models\QuizResponse.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

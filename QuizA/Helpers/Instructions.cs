@@ -268,7 +268,9 @@ namespace QuizA
                 colored.printColoredMessages(successQuestionAmountMssg, ConsoleColor.Green, false);
 
 
-                colored.printColoredMessages("\n Summary of your selections are as follows :", ConsoleColor.DarkBlue);
+                /*colored.printColoredMessages("\n Summary of your selections are as follows :", ConsoleColor.DarkBlue);*/
+
+
                 
                 /*colored.printColoredMessages($"(1).Question Category selected : {category[validatedCategoryNumber - 1]}", ConsoleColor.Green, false);
                 colored.printColoredMessages($"(2).Question Type selected : {questionTypes[questionTypeSelected - 1]}", ConsoleColor.Green, false);
@@ -281,12 +283,6 @@ namespace QuizA
                 Amount = questionAmount.ToString();
                 Difficulty = difficulties[difficultyLevelSelected - 1];
 
-
-
-
-
-
-
             }
             catch (Exception error)
             {
@@ -295,7 +291,7 @@ namespace QuizA
 
 
 
-            Console.ReadKey();
+            //Console.ReadKey();
 
 
 
