@@ -5,3 +5,8 @@ C:\Users\walex\CSharp_Programs\SOFTWARE PROJECT\QuizA\QuizA\obj\Debug\QuizA.cspr
 C:\Users\walex\CSharp_Programs\SOFTWARE PROJECT\QuizA\QuizA\obj\Debug\QuizA.csproj.CoreCompileInputs.cache
 C:\Users\walex\CSharp_Programs\SOFTWARE PROJECT\QuizA\QuizA\obj\Debug\QuizA.exe
 C:\Users\walex\CSharp_Programs\SOFTWARE PROJECT\QuizA\QuizA\obj\Debug\QuizA.pdb
+C:\Users\walex\CSharp_Programs\SOFTWARE PROJECT\QuizA\QuizA\bin\Debug\Newtonsoft.Json.dll
+C:\Users\walex\CSharp_Programs\SOFTWARE PROJECT\QuizA\QuizA\bin\Debug\System.Net.Http.Formatting.dll
+C:\Users\walex\CSharp_Programs\SOFTWARE PROJECT\QuizA\QuizA\bin\Debug\Newtonsoft.Json.xml
+C:\Users\walex\CSharp_Programs\SOFTWARE PROJECT\QuizA\QuizA\bin\Debug\System.Net.Http.Formatting.xml
+C:\Users\walex\CSharp_Programs\SOFTWARE PROJECT\QuizA\QuizA\obj\Debug\QuizA.csproj.CopyComplete

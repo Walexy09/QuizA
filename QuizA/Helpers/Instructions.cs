@@ -1,4 +1,5 @@
-﻿using System;
+﻿using QuizA.HttpCalls;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,6 +16,11 @@ namespace QuizA
 
     public class Instructions
     {
+        static public string Category { get; set; }
+        static public string Amount { get; set; }
+        static public string Difficulty { get; set; }
+        static public string Type { get; set; }
+
         //Added this method on 23/11/22: Used to validate input from users. If user supplies invalid entry, it will keep
         //prompting them to enter they enter the right value before they can proceed. 
         static public int ValidateUserInputs(
@@ -264,10 +270,18 @@ namespace QuizA
 
                 colored.printColoredMessages("\n Summary of your selections are as follows :", ConsoleColor.DarkBlue);
                 
-                colored.printColoredMessages($"(1).Question Category selected : {category[validatedCategoryNumber - 1]}", ConsoleColor.Green, false);
+                /*colored.printColoredMessages($"(1).Question Category selected : {category[validatedCategoryNumber - 1]}", ConsoleColor.Green, false);
                 colored.printColoredMessages($"(2).Question Type selected : {questionTypes[questionTypeSelected - 1]}", ConsoleColor.Green, false);
                 colored.printColoredMessages($"(3).Question difficulty selected : {difficulties[difficultyLevelSelected - 1]}", ConsoleColor.Green, false);
                 colored.printColoredMessages($"(4).Amount of questions to answer : {questionAmount}", ConsoleColor.Green, false);
+*/
+                //set all the properties of the instruction classes
+                Category = category[validatedCategoryNumber - 1];
+                Type = questionTypes[questionTypeSelected - 1];
+                Amount = questionAmount.ToString();
+                Difficulty = difficulties[difficultyLevelSelected - 1];
+
+
 
 
 
