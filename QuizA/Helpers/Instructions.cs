@@ -116,8 +116,8 @@ namespace QuizA
             string categorySelected;
             int validatedCategoryNumber;
             int categoryNoValue = 0;
-            int questionAmount = 20;
-            const int minQuestionNo = 20;
+            int questionAmount = 10;
+            const int minQuestionNo = 10;
             const int maxQuestionNo = 50;
             int difficultyLevelSelected;
             int questionTypeSelected;
