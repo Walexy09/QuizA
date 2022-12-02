@@ -25,14 +25,29 @@ namespace QuizA
 
             String category = Instructions.Category;
             String amount = Instructions.Amount;
+
             String difficulty = Instructions.Difficulty;
+
             String type = Instructions.Type;
+            if (type == "Multiple Choice")
+            {
+                type = "multiple";
+            }
+            else if (type == "True/False")
+            {
+                type = "boolean";
+            }
+            else {
+
+                type = "";
+            
+            }
 
 
-            //use the HttpApi class and pass in the values the user supplied to make the APi call to the remote end'
-            //colored.printColoredMessages($"\n Please Wait Fetching Data................. :", ConsoleColor.Green);
+                //use the HttpApi class and pass in the values the user supplied to make the APi call to the remote end'
+                //colored.printColoredMessages($"\n Please Wait Fetching Data................. :", ConsoleColor.Green);
 
-            String loadingMessage = HttpApi.Quizes == null ? "Please Wait Fetching Data................. :" : "Fetched data!";
+                String loadingMessage = HttpApi.Quizes == null ? "Please Wait Fetching Data................. :" : "Fetched data!";
 
             colored.printColoredMessages($"\n {loadingMessage.ToUpper()}", ConsoleColor.Green);
 

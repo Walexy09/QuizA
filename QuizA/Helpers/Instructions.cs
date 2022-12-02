@@ -271,14 +271,15 @@ namespace QuizA
                 /*colored.printColoredMessages("\n Summary of your selections are as follows :", ConsoleColor.DarkBlue);*/
 
 
-                
+
                 /*colored.printColoredMessages($"(1).Question Category selected : {category[validatedCategoryNumber - 1]}", ConsoleColor.Green, false);
                 colored.printColoredMessages($"(2).Question Type selected : {questionTypes[questionTypeSelected - 1]}", ConsoleColor.Green, false);
                 colored.printColoredMessages($"(3).Question difficulty selected : {difficulties[difficultyLevelSelected - 1]}", ConsoleColor.Green, false);
                 colored.printColoredMessages($"(4).Amount of questions to answer : {questionAmount}", ConsoleColor.Green, false);
 */
                 //set all the properties of the instruction classes
-                Category = category[validatedCategoryNumber - 1];
+                Category = categoryNoValue.ToString();
+                //category[validatedCategoryNumber - 1];
                 Type = questionTypes[questionTypeSelected - 1];
                 Amount = questionAmount.ToString();
                 Difficulty = difficulties[difficultyLevelSelected - 1];
