@@ -62,16 +62,16 @@ namespace QuizA
 
                 if (HttpApi.Quizes.Count > 0)
                 {
-                    colored.printColoredMessages($"\n Quizes Fected length: {HttpApi.Quizes.Count}", ConsoleColor.Green);
+                    //colored.printColoredMessages($"\n Quizes Fetched length: {HttpApi.Quizes.Count}", ConsoleColor.Green);
                 }
                 else
                 {
-                    colored.printColoredMessages($"\n Quizes Fetched is empty and does not contain anything", ConsoleColor.Red);
+                    colored.printColoredMessages($"\n No quizes found, please rechoose your options!", ConsoleColor.Red);
 
                 }
 
 
-                colored.printColoredMessages($"\n Would you like to retake the quiz? , Y for Yes and N for NO", ConsoleColor.Green, false);
+                colored.printColoredMessages($"\n Would you like to retake the quiz? , Y for Yes and N for NO:  ", ConsoleColor.White, false);
 
                 userResponse = Console.ReadLine().ToUpper();
 
