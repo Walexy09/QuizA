@@ -214,7 +214,7 @@ namespace QuizA.HttpCalls
                     {
 
                         colored.printColoredMessages($"\n Would you like a detailed view of your performance on the quiz? " +
-                            $"This also shows the correct answer for each question Press Y for Yes, or N for No: ", ConsoleColor.Magenta, false);
+                            $"This also shows the correct answer for each question. [Y/N] Y for Yes, N for No: ", ConsoleColor.Magenta, false);
                         if (Console.ReadLine().ToUpper() == "Y")
                         {
                             quizSummary = true;

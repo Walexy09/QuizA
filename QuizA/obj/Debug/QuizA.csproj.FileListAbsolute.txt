@@ -26,3 +26,5 @@ C:\Users\walex\CSharp_Programs\SOFTWARE PROJECT\QuizA\QuizA\obj\Debug\QuizA.cspr
 C:\Users\walex\CSharp_Programs\SOFTWARE PROJECT\QuizA\QuizA\obj\Debug\QuizA.exe
 C:\Users\walex\CSharp_Programs\SOFTWARE PROJECT\QuizA\QuizA\obj\Debug\QuizA.pdb
 C:\Users\walex\CSharp_Programs\SOFTWARE PROJECT\QuizA\QuizA\obj\Debug\QuizA.csproj.AssemblyReference.cache
+C:\Users\walex\CSharp_Programs\SOFTWARE PROJECT\QuizA\QuizA\bin\Debug\Spectre.Console.dll
+C:\Users\walex\CSharp_Programs\SOFTWARE PROJECT\QuizA\QuizA\bin\Debug\Spectre.Console.xml

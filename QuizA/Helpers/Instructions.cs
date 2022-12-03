@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace QuizA
 {
     //This class contains the instruction for playing the quiz game
@@ -78,6 +79,8 @@ namespace QuizA
         static public void QuizInstructions()
         {
             Helpers.ColoredMessage colored = new Helpers.ColoredMessage();
+
+            
 
             String author = "Joshua Ajayi Adewale, N1048457";
             String version = "1.0.0";

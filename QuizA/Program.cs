@@ -71,7 +71,7 @@ namespace QuizA
                 }
 
 
-                colored.printColoredMessages($"\n Would you like to retake the quiz? , Y for Yes and N for NO:  ", ConsoleColor.White, false);
+                colored.printColoredMessages($"\n Would you like to retake the quiz? , [Y/N] Y for Yes, N for No:  ", ConsoleColor.White, false);
 
                 userResponse = Console.ReadLine().ToUpper();
 
