@@ -24,7 +24,7 @@ namespace QuizA.HttpCalls
     {
         static public List<Quiz> Quizes {get; set;}
 
-        static Random rng = new Random(); //used to shuffule the order of the option list
+       // static Random rng = new Random(); //used to shuffule the order of the option list
 
 
 
@@ -32,7 +32,27 @@ namespace QuizA.HttpCalls
         {
             using (var client = new HttpClient())
             {
-               
+                
+
+                const int minChoiceAns = 1;
+                int maxChoiceAns = 5;
+                const int maxBoolChoiceAns = 3;
+
+                //use this to keep track of all chosen answers, both correct and incorrect
+                List<String> quizTakerChosenAnswersToQuestions = new List<string>();
+
+                List<bool> correctAnwersTracker = new List<bool>();
+
+                //check is selected type == "boolean", then set maxChoiceAns = maxBoolChoiceAns
+                if (type == "boolean")
+                {
+                    maxChoiceAns = maxBoolChoiceAns;
+                }
+
+                int correctAns = 0;
+
+                bool quizSummary = false;
+
                 String url2 = "https://opentdb.com/api.php";
                 client.BaseAddress = new Uri(url2);
                 //client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("OAuth","xyz");
@@ -75,32 +95,41 @@ namespace QuizA.HttpCalls
 
                     int[] userAnswer = new int[Quizes.Count];
 
-                    const int minChoiceAns = 1;
-                    const int maxChoiceAns = 5;
-
-                    //use this to keep track of all chosen answers, both correct and incorrect
-                    List<String> quizTakerChosenAnswersToQuestions = new List<string>();
-
-                    List<bool> correctAnwersTracker = new List<bool>();
-
-                    int correctAns = 0;
-
-                    bool quizSummary = false;
+                    List<string> deduplicatedIncorrectAnswers = new List<string>();
 
                     Console.WriteLine($"\n Number of Quizes found from HttpApi class : {Quizes.Count}");
                     for (var i = 0; i < Quizes.Count; i++) {
 
-                        colored.printColoredMessages($"\n ({i+1}) Questions: {Quizes[i].question}", ConsoleColor.DarkYellow);
-                        colored.printColoredMessages($" Options ", ConsoleColor.DarkYellow);
+                        colored.printColoredMessages($"\n Question {i + 1}: {Quizes[i].question}", ConsoleColor.DarkYellow);
+                        colored.printColoredMessages($"Options: ", ConsoleColor.DarkYellow);
 
-                        Quizes[i].incorrect_answers.Add(Quizes[i].correct_answer);
+                        Quizes[i].incorrect_answers.Add(Quizes[i].correct_answer); //add the correct answer to
+                                                                                   //list of options to choose from and shuffle it
 
                         Quizes[i].incorrect_answers =
                         Quizes[i].incorrect_answers.OrderBy(j => Guid.NewGuid()).ToList(); //This shuffles the option
+                                                                                           //remove duplicate entries here
+                        if (type == "boolean")
+                        {
+                            deduplicatedIncorrectAnswers = Quizes[i].incorrect_answers.Distinct().ToList();
+                            //answered Sep 6, 2008 at 19:56
+                            //by Factor Mystic's user avatar
+                            //source: https://stackoverflow.com/questions/47752/remove-duplicates-from-a-listt-in-c-sharp//
+                            //Topic: Remove duplicates from a List<T> in C#
+                        }
+                        else
+                        {
+
+                            deduplicatedIncorrectAnswers = Quizes[i].incorrect_answers;
+
+                        }
+
+                        Quizes[i].incorrect_answers = deduplicatedIncorrectAnswers;   //set it back here
+
 
                         for (var ques = 0; ques < Quizes[i].incorrect_answers.Count; ques++) {
 
-                            colored.printColoredMessages($"{ques + 1}) {Quizes[i].incorrect_answers[ques]}", ConsoleColor.White, true);
+                            colored.printColoredMessages($"{ques + 1}) {Quizes[i].incorrect_answers[ques]}", ConsoleColor.White);
 
                         }
 
@@ -180,51 +209,61 @@ namespace QuizA.HttpCalls
                         colored.printColoredMessages($"\n *******************************************************************************************************", ConsoleColor.Blue, true);
 
                     }
-                    colored.printColoredMessages($"\n Would you like a detailed view of your performance on the quiz? This also shows the correct answer for each question Press Y for Yes, or N for No: ", ConsoleColor.DarkMagenta, false);
 
-                    if (Console.ReadLine().ToUpper() == "Y")
+                    if (Quizes.Count > 0) //only show this if quizes are fetched
                     {
-                        quizSummary = true;
 
-                        if (quizSummary)
+                        colored.printColoredMessages($"\n Would you like a detailed view of your performance on the quiz? " +
+                            $"This also shows the correct answer for each question Press Y for Yes, or N for No: ", ConsoleColor.Magenta, false);
+                        if (Console.ReadLine().ToUpper() == "Y")
                         {
-                            for (var i = 0; i < Quizes.Count; i++)
+                            quizSummary = true;
+
+                            if (quizSummary)
                             {
-
-                                colored.printColoredMessages($"\n Question  ({i + 1}): {Quizes[i].question}", ConsoleColor.DarkGray, true);
-                                colored.printColoredMessages($"---------------------------------------------------------------------------------------", ConsoleColor.White, true);
-
-                                for (int ans = 0; ans < quizTakerChosenAnswersToQuestions.Count; ans++) 
+                                for (var i = 0; i < Quizes.Count; i++)
                                 {
-                                    if (i == ans) 
+
+                                    colored.printColoredMessages($"\n Question  ({i + 1}): {Quizes[i].question}", ConsoleColor.DarkGray, true);
+                                    colored.printColoredMessages($"---------------------------------------------------------------------------------------", ConsoleColor.White, true);
+
+                                    for (int ans = 0; ans < quizTakerChosenAnswersToQuestions.Count; ans++)
                                     {
-                                        colored.printColoredMessages($"Your chosen answer is: { quizTakerChosenAnswersToQuestions[i]} ", ConsoleColor.DarkYellow);
-                                        colored.printColoredMessages($"Correct Answer is: { Quizes[i].correct_answer} ", ConsoleColor.DarkYellow);
-
-                                        colored.printColoredMessages($"VERDICT: ", ConsoleColor.DarkYellow, false);
-
-                                        if (quizTakerChosenAnswersToQuestions[i] == Quizes[i].correct_answer)
+                                        if (i == ans)
                                         {
-                                            colored.printColoredMessages($"You are correct !!", ConsoleColor.Green, false);
+                                            colored.printColoredMessages($"Your chosen answer is: { quizTakerChosenAnswersToQuestions[i]} ", ConsoleColor.DarkYellow);
+                                            colored.printColoredMessages($"Correct Answer is: { Quizes[i].correct_answer} ", ConsoleColor.DarkYellow);
+
+                                            colored.printColoredMessages($"VERDICT: ", ConsoleColor.DarkYellow, false);
+
+                                            if (quizTakerChosenAnswersToQuestions[i] == Quizes[i].correct_answer)
+                                            {
+                                                colored.printColoredMessages($"You are correct !!", ConsoleColor.Green, false);
+
+                                            }
+                                            else
+                                            {
+                                                colored.printColoredMessages($"You are Wrong !!", ConsoleColor.Red, false);
+
+                                            }
 
                                         }
-                                        else 
-                                        {
-                                            colored.printColoredMessages($"You are Wrong !!", ConsoleColor.Red, false);
-
-                                        }
-
                                     }
+
+
                                 }
-                                
 
                             }
 
-                            }
+                        }
+
+
 
                     }
-             
-                    
+
+
+
+
 
                 }
 
