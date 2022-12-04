@@ -37,6 +37,7 @@ namespace QuizA.HttpCalls
                 const int minChoiceAns = 1;
                 int maxChoiceAns = 5;
                 const int maxBoolChoiceAns = 3;
+                Logger logger = new Logger();
 
                 //use this to keep track of all chosen answers, both correct and incorrect
                 List<String> quizTakerChosenAnswersToQuestions = new List<string>();
@@ -189,16 +190,25 @@ namespace QuizA.HttpCalls
                     {
                         colored.printColoredMessages($"\n *******************************************************************************************************", ConsoleColor.Blue, true);
 
+                        String categoryNameSelected = Instructions.CategoryName;
 
                         string header = "Your Quiz Score:";
 
                         colored.printColoredMessages($"\t\t\t\t\t {header.ToUpper()}", ConsoleColor.White, true);
 
-                        string quizMessage = $"Correct Answers : {correctAns} \n \t\t\t\t\t Wrong Answers: {correctAnwersTracker.Count - correctAns}";
+                        string categoryNameMessage = $"SUBJECT: {categoryNameSelected.ToUpper()}";
+
+                        colored.printColoredMessages($"\t\t\t\t\t {categoryNameMessage} ", ConsoleColor.DarkGreen, true);
+
+                        string quizMessage = $"Correct Answers : {correctAns} ";
+
+                        string quizIncorrectMessage = $"Wrong Answers: {correctAnwersTracker.Count - correctAns}";
 
                         string percentMessage = $"Your percentage score: {((double)correctAns / (double)correctAnwersTracker.Count) * (double)100} %";
 
                         colored.printColoredMessages($"\t\t\t\t\t {quizMessage.ToUpper()} ", ConsoleColor.DarkGreen, true);
+
+                        colored.printColoredMessages($"\t\t\t\t\t {quizIncorrectMessage.ToUpper()} ", ConsoleColor.White, true);
 
                         double scoreEarned = ((double)correctAns / (double)correctAnwersTracker.Count) * (double)100;
 
@@ -208,6 +218,60 @@ namespace QuizA.HttpCalls
 
                         colored.printColoredMessages($"\n *******************************************************************************************************", ConsoleColor.Blue, true);
 
+                        if (scoreEarned == 0)
+                        {
+
+                            colored.printColoredMessages($"\t\t\t\t\t I am really shaking my head for you, this is really bad!!!!", ConsoleColor.Red, true);
+
+                        }
+                        else if (scoreEarned >= 10 && scoreEarned < 30)
+                        {
+                            colored.printColoredMessages($"\t\t\t\t\t Hmmm, thinking you need to do better!!!", ConsoleColor.DarkRed, true);
+                        }
+                        else if (scoreEarned >= 30 && scoreEarned < 50)
+                        {
+                            colored.printColoredMessages($"\t\t\t\t\t well, I believe you can do much better!!!", ConsoleColor.Yellow, true);
+                        }
+                        else if (scoreEarned >= 50 && scoreEarned < 70)
+                        {
+                            colored.printColoredMessages($"\t\t\t\t\t I am a bit proud of you, I believe there\'s more steam in your engine, fire on!!", ConsoleColor.Blue, true);
+                        }
+                        else if (scoreEarned >= 70 && scoreEarned < 85)
+                        {
+                            colored.printColoredMessages($"\t\t\t\t\t This is what we are talking about, I bow my hat, you are doing well!!", ConsoleColor.DarkYellow, true);
+                        }
+                        else if (scoreEarned >= 85 && scoreEarned < 90)
+                        {
+                            colored.printColoredMessages($"\t\t\t\t\t You have gat the excellence gene, supergenius are you!!", ConsoleColor.Yellow, true);
+                        }
+                        else 
+                        {
+                            colored.printColoredMessages($"\t\t\t\t\t Well done, you are indeed a rare gem, awesome and super nova brilliancy you have gat!!!!", ConsoleColor.Green, true);
+                        }
+
+                        
+
+
+                        String loggedMessage = $"\nQUIZ SCORE \n\n{categoryNameMessage.ToUpper()}. \n\n{quizMessage.ToUpper()} \n\n{quizIncorrectMessage.ToUpper()} \n\n{percentMessage.ToUpper()}";
+
+                        colored.printColoredMessages($"\t\t\t\t\t Would you like to save your quiz scores? Y or N: ", ConsoleColor.White, false);
+
+                        string savedScore = Console.ReadLine().ToUpper();
+                        try
+
+                        {
+                            if (savedScore == "Y")
+                            {
+                                Logger.WriteUserLogs(loggedMessage, true);
+                                colored.printColoredMessages($"\t\t\t\t\t Data Saved successfully!!", ConsoleColor.White, true);
+                            }
+                            
+                        }
+                        catch (Exception error) 
+                        {
+                            colored.printColoredMessages($"\t\t\t\t\t Error: {error.ToString().ToUpper()} ", ConsoleColor.DarkRed, true);
+                        }
+                        
                     }
 
                     if (Quizes.Count > 0) //only show this if quizes are fetched

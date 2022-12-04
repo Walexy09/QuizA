@@ -23,7 +23,7 @@ namespace QuizA
 
                 colored.printColoredMessages("\n Summary of your selections are as follows :", ConsoleColor.DarkBlue);
 
-                Console.WriteLine($"\n Question Category: {Instructions.Category}" +
+                Console.WriteLine($"\n Question Category: {Instructions.CategoryName}" +
                     $"\n Number of Questions Selected: {Instructions.Amount}" +
                     $"\n Question Difficulty Selected: {Instructions.Difficulty}" +
                     $"\n Type of Question Selected: {Instructions.Type}");

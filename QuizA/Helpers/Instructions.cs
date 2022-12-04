@@ -21,6 +21,7 @@ namespace QuizA
         static public string Amount { get; set; }
         static public string Difficulty { get; set; }
         static public string Type { get; set; }
+        static public string CategoryName { get; set; }
 
         //Added this method on 23/11/22: Used to validate input from users. If user supplies invalid entry, it will keep
         //prompting them to enter they enter the right value before they can proceed. 
@@ -168,6 +169,9 @@ namespace QuizA
                 }
 
                 string successMssg = $"You selected: {category[validatedCategoryNumber - 1]} Equivalet to value number: {categoryNoValue}";
+
+                //Used to send the name of the chosen category to the HttpApi class for loggin purpose
+                CategoryName = category[validatedCategoryNumber - 1];
 
                 colored.printColoredMessages(successMssg, ConsoleColor.Green);
 
