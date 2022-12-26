@@ -87,11 +87,11 @@ namespace QuizA
             String version = "1.0.0";
             string appName = "Quiza Appplication";
             string requiresInternet = $" Nb:Requires internet connectivity to fetch quizes and answers!!";
-            String message = $" Welcome to the {appName.ToUpper()}, version: {version}. Developed by {author.ToUpper()}." +
+            String message = $" Welcome to the {appName.ToUpper()}, version: {version}. Written, Coded and Developed by {author.ToUpper()}." +
                 $"\n\n***************************************************Instructions********************************************* " +
                 $" \n\n You would be presented with some options to select from, these determines the type of quiz questions you get." +
-                $" In turn, a number of question is returned to you after which you must type start to begin the question with timer." +
-                $" You must answer within a specified time limit." +
+                $" In turn, a number of question is returned to you after which you must press the ENTER key to begin the quiz with a timer running." +
+                $" You must answer the questions within a specified time limit else the quiz will end abruply and you would not be able to complete it." +
                 $"\n\n The user must select: \n (i)  A Question Category \n (ii) A Difficulty Level \n (iii)A Question Type" +
                 $" i.e: multiple choice or True/False based questions \n (iv) The number of questions to answer!       ";
 
@@ -131,7 +131,7 @@ namespace QuizA
 
             colored.printColoredMessages(catMssg, ConsoleColor.White);
 
-            colored.printColoredMessages("*****************CATEGORIES****************************", ConsoleColor.Green);
+            colored.printColoredMessages("\n \t\t\t\t**********************************CATEGORIES****************************", ConsoleColor.Green);
 
             for (int cat = 0; cat < category.Length; cat++)
             {
@@ -169,7 +169,7 @@ namespace QuizA
 
                 }
 
-                string successMssg = $"You selected: {category[validatedCategoryNumber - 1]} Equivalet to value number: {categoryNoValue}";
+                string successMssg = $"You selected: {category[validatedCategoryNumber - 1]}"; // Equivalet to value number: {categoryNoValue}
 
                 //Used to send the name of the chosen category to the HttpApi class for logging purpose
                 CategoryName = category[validatedCategoryNumber - 1];

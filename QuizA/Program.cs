@@ -66,12 +66,14 @@ namespace QuizA
                 }
                 else
                 {
-                    colored.printColoredMessages($"\n No quizes found, please rechoose your options or reduce the number of questions requested!", ConsoleColor.Red);
+                    colored.printColoredMessages($"\n \t\t\t\t  No quizes found, please rechoose your options or reduce the number of questions requested!", ConsoleColor.Red);
 
                 }
 
 
-                colored.printColoredMessages($"\n Would you like to retake the quiz? , [Y/N] Y for Yes, N for No:  ", ConsoleColor.White, false);
+                colored.printColoredMessages($"\n \t\t\t\t  Would you like to retake the quiz? , [Y/N] Y for Yes, N for No:  ", ConsoleColor.White, false);
+
+               
 
                 userResponse = Console.ReadLine().ToUpper();
 
@@ -83,7 +85,7 @@ namespace QuizA
                 else 
                 {
                     retakeQuiz = false;
-                    colored.printColoredMessages($"\n Quitting application now....", ConsoleColor.DarkYellow);
+                    colored.printColoredMessages($"\n \t\t\t\t \n Quitting application now....", ConsoleColor.DarkYellow);
                     Console.ReadKey();
                     break;
                 }

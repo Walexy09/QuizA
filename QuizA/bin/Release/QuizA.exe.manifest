@@ -42,6 +42,18 @@
     </dependentAssembly>
   </dependency>
   <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="InputSimulatorStandard.dll" size="22528">
+      <assemblyIdentity name="InputSimulatorStandard" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>SK2JRbhY2Jjmm8w7WgHo2Ghf8CQZM++JnOnhL9/AUDA=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
     <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Microsoft.AspNetCore.WebUtilities.dll" size="66424">
       <assemblyIdentity name="Microsoft.AspNetCore.WebUtilities" version="2.2.0.0" publicKeyToken="ADB9793829DDAE60" language="neutral" processorArchitecture="msil" />
       <hash>
@@ -90,14 +102,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="QuizA.exe" size="27560">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="QuizA.exe" size="31656">
       <assemblyIdentity name="QuizA" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>+5BsXpGoOCc2D4Wn5dEpqNNDU6xKqlbVdnMUYtRwDH4=</dsig:DigestValue>
+        <dsig:DigestValue>5G4CDsQjPq5MdXgfjSFLpD/cNxNOqOxXNWnmQ4H0XXA=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

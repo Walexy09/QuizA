@@ -30,3 +30,4 @@ C:\Users\walex\CSharp_Programs\SOFTWARE PROJECT\QuizA\QuizA\obj\Release\QuizA.ap
 C:\Users\walex\CSharp_Programs\SOFTWARE PROJECT\QuizA\QuizA\obj\Release\QuizA.csproj.CopyComplete
 C:\Users\walex\CSharp_Programs\SOFTWARE PROJECT\QuizA\QuizA\obj\Release\QuizA.exe
 C:\Users\walex\CSharp_Programs\SOFTWARE PROJECT\QuizA\QuizA\obj\Release\QuizA.pdb
+C:\Users\walex\CSharp_Programs\SOFTWARE PROJECT\QuizA\QuizA\bin\Release\InputSimulatorStandard.dll
