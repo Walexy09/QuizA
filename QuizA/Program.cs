@@ -21,12 +21,12 @@ namespace QuizA
 
                 Helpers.ColoredMessage colored = new Helpers.ColoredMessage();
 
-                colored.printColoredMessages("\n Summary of your selections are as follows :", ConsoleColor.DarkBlue);
+                colored.printColoredMessages("\n \t\t Summary of your selections are as follows :", ConsoleColor.White);
 
-                Console.WriteLine($"\n Question Category: {Instructions.CategoryName}" +
-                    $"\n Number of Questions Selected: {Instructions.Amount}" +
-                    $"\n Question Difficulty Selected: {Instructions.Difficulty}" +
-                    $"\n Type of Question Selected: {Instructions.Type}");
+                Console.WriteLine($"\n \t\t Question Category: {Instructions.CategoryName}" +
+                    $"\n \t\t Number of Questions Selected: {Instructions.Amount}" +
+                    $"\n \t\t Question Difficulty Selected: {Instructions.Difficulty}" +
+                    $"\n \t\t Type of Question Selected: {Instructions.Type}");
 
                 String category = Instructions.Category;
                 String amount = Instructions.Amount;
@@ -66,7 +66,7 @@ namespace QuizA
                 }
                 else
                 {
-                    colored.printColoredMessages($"\n No quizes found, please rechoose your options!", ConsoleColor.Red);
+                    colored.printColoredMessages($"\n No quizes found, please rechoose your options or reduce the number of questions requested!", ConsoleColor.Red);
 
                 }
 

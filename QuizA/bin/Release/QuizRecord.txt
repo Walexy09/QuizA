@@ -1,0 +1,36 @@
+**********User Quiz Taken On 12/12/2022 16:01:48 *************
+
+QUIZ SCORE 
+
+SUBJECT: HISTORY. 
+
+CORRECT ANSWERS : 5  
+
+WRONG ANSWERS: 15 
+
+YOUR PERCENTAGE SCORE: 25 %
+**********END****************
+**********User Quiz Taken On 12/12/2022 16:11:32 *************
+
+QUIZ SCORE 
+
+SUBJECT: SCIENCE & NATURE. 
+
+CORRECT ANSWERS : 7  
+
+WRONG ANSWERS: 3 
+
+YOUR PERCENTAGE SCORE: 70 %
+**********END****************
+**********User Quiz Taken On 12/12/2022 16:33:16 *************
+
+QUIZ SCORE 
+
+SUBJECT: SCIENCE: COMPUTERS. 
+
+CORRECT ANSWERS : 3  
+
+WRONG ANSWERS: 7 
+
+YOUR PERCENTAGE SCORE: 30 %
+**********END****************

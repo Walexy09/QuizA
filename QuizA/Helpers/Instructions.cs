@@ -92,12 +92,12 @@ namespace QuizA
                 $" \n\n You would be presented with some options to select from, these determines the type of quiz questions you get." +
                 $" In turn, a number of question is returned to you after which you must type start to begin the question with timer." +
                 $" You must answer within a specified time limit." +
-                $"\n\n The user must select: \n (i) A Question Category \n (ii) Difficulty Level \n (iii) Question Type" +
+                $"\n\n The user must select: \n (i)  A Question Category \n (ii) A Difficulty Level \n (iii)A Question Type" +
                 $" i.e: multiple choice or True/False based questions \n (iv) The number of questions to answer!       ";
 
             colored.printColoredMessages("\n***************************************************Instructions********************************************* ");
             colored.printColoredMessages(message);
-            colored.printColoredMessages(requiresInternet.ToUpper(), ConsoleColor.DarkBlue);
+            colored.printColoredMessages(requiresInternet.ToUpper(), ConsoleColor.Red);
 
             String[] category = { "General Knowledge", "Entertainment:Books", "Entertainment: Film", "Entertainment: Music",
                 "Entertainment: Musicals & Theatres", "Entertainment: Television", "Entertainment: Video Games",
@@ -126,9 +126,10 @@ namespace QuizA
             int difficultyLevelSelected;
             int questionTypeSelected;
 
-            string catMssg = "These are the categories to select from. Please choose a category by selecting the appropriate number";
+            string catMssg = "These are the categories to select from. Please choose a category by selecting the appropriate number from " +
+                "the below given options : ";
 
-            colored.printColoredMessages(catMssg, ConsoleColor.Green);
+            colored.printColoredMessages(catMssg, ConsoleColor.White);
 
             colored.printColoredMessages("*****************CATEGORIES****************************", ConsoleColor.Green);
 
@@ -170,7 +171,7 @@ namespace QuizA
 
                 string successMssg = $"You selected: {category[validatedCategoryNumber - 1]} Equivalet to value number: {categoryNoValue}";
 
-                //Used to send the name of the chosen category to the HttpApi class for loggin purpose
+                //Used to send the name of the chosen category to the HttpApi class for logging purpose
                 CategoryName = category[validatedCategoryNumber - 1];
 
                 colored.printColoredMessages(successMssg, ConsoleColor.Green);
@@ -178,7 +179,7 @@ namespace QuizA
                 ///////////////////////////////////////////////////////////////////////////////////
                 /////For Question Type selected//////////////////////////////////////////
 
-                colored.printColoredMessages("\n Please select your question type from amongst the below !  ");
+                colored.printColoredMessages("\n Please select your question type from amongst the options listed below!: ");
 
                 for (int questionType = 0; questionType < questionTypes.Length; questionType++)
                 {
@@ -226,8 +227,8 @@ namespace QuizA
                 ///
 
 
-                colored.printColoredMessages("\n Please select the number of questions difficulty you would like to answer, i.e," +
-                    "\n how many quiz questions be presented to you. Maximum is 50 while minimun should be 20?  :", ConsoleColor.White, false);
+                colored.printColoredMessages("\n Please select the number of questions to be presented to you. i.e," +
+                    "\n how many quiz questions would you like to answer? Maximum is 50 while minimun should be 20?  :", ConsoleColor.White, false);
 
                 int validatedAmountOfQuestions;
 

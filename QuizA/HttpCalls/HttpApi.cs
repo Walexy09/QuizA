@@ -9,6 +9,7 @@ using QuizA.Helpers;
 using System.Linq;
 using System.Web;
 using Microsoft.AspNetCore.WebUtilities;
+using System.Timers;
 
 namespace QuizA.HttpCalls
 {
@@ -24,16 +25,102 @@ namespace QuizA.HttpCalls
     {
         static public List<Quiz> Quizes {get; set;}
 
-       // static Random rng = new Random(); //used to shuffule the order of the option list
+        public static Timer timer;
+        static public int MilSec { get; set; }
+        static public int Sec { get; set; }
+        static public int Min { get; set; }
+        static public bool IsActive { get; set; }
+
+
+
+        //Method to execute the timer
+        public static void SetTimer(bool isActive = false)
+        {
+            MilSec = 0;
+            Sec = 10;
+            Min = 0;
+            isActive = IsActive;
+
+            int callInterval = 10;
+            // Create a timer with a passed in time interval. Time will tick every 1o milseconds ideally
+            timer = new Timer(callInterval);
+            // Hook up the Elapsed event for the timer.
+            timer.Elapsed += OnTimedEvent;
+            timer.AutoReset = true;
+            timer.Enabled = true;
+            timer.Start();
+
+            if (IsActive)
+            {
+                MilSec++; //since the default value is 10milseconds, it means when milSec = 100, then 1 second has passed
+                if (MilSec >= 100)
+                {
+                    Sec++;  //if milSec >= 100, then it means it is 1 second already and should reset milSec back to 0
+                    MilSec = 0;
+
+                    if (Sec >= 60) //This means 1 min has passed, hence reset sec = 0
+                    {
+                        Min++;
+                        Sec = 0;
+
+                    }
+                }
+
+            }
+        }
+
+
+        static void ResetTimer() 
+        {
+            MilSec = 0;
+            Sec = 0;
+            Min = 0;
+            IsActive = false;
+        
+        }
+
+        private static void OnTimedEvent(Object source, ElapsedEventArgs e)
+        {
+            if (IsActive)
+            {
+                MilSec++; //since the default value is 10milseconds, it means when milSec = 100, then 1 second has passed
+                if (MilSec >= 100)
+                {
+                    Sec++;  //if milSec >= 100, then it means it is 1 second already and should reset milSec back to 0
+                    MilSec = 0;
+
+                    if (Sec >= 60) //This means 1 min has passed, hence reset sec = 0
+                    {
+                        Min++;
+                        Sec = 0;
+
+                    }
+                }
+
+            }
+        }
+
+        static String DisplayTimer() 
+        {
+            SetTimer(true);
+
+            Console.ForegroundColor = ConsoleColor.Green;
+            string timeDisplay = String.Format("{0:00}", MilSec) + " : " + String.Format("{0:00}", Sec) + " : " + String.Format("{0:00}", Min);
+            Console.WriteLine(timeDisplay);
+            Console.ResetColor();
+            return timeDisplay;
+        }
 
 
 
         static public async Task RunAsync(String category, String type, String amount, String difficulty)
         {
+
             using (var client = new HttpClient())
             {
-                
 
+               
+                
                 const int minChoiceAns = 1;
                 int maxChoiceAns = 5;
                 const int maxBoolChoiceAns = 3;
@@ -75,7 +162,7 @@ namespace QuizA.HttpCalls
 
                 var urlEndPoint = QueryHelpers.AddQueryString(url2, query);
 
-                colored.printColoredMessages($"Url Endpoint obtained: {urlEndPoint}", ConsoleColor.DarkMagenta);
+                colored.printColoredMessages($"Url Endpoint obtained: {urlEndPoint}", ConsoleColor.White);
 
                 HttpResponseMessage response = await client.GetAsync(urlEndPoint);
 
@@ -99,9 +186,10 @@ namespace QuizA.HttpCalls
                     List<string> deduplicatedIncorrectAnswers = new List<string>();
 
                     Console.WriteLine($"\n Number of Quizes found from HttpApi class : {Quizes.Count}");
+
                     for (var i = 0; i < Quizes.Count; i++) {
 
-                        colored.printColoredMessages($"\n Question {i + 1}: {Quizes[i].question}", ConsoleColor.DarkYellow);
+                        colored.printColoredMessages($"\n Question {i + 1}: {Quizes[i].question} Timer: {DisplayTimer()} ", ConsoleColor.DarkYellow);
                         colored.printColoredMessages($"Options: ", ConsoleColor.DarkYellow);
 
                         Quizes[i].incorrect_answers.Add(Quizes[i].correct_answer); //add the correct answer to
@@ -135,6 +223,7 @@ namespace QuizA.HttpCalls
                         }
 
                         Console.Write($"\n What is the appropriate answer to the question {i + 1} ?: ");
+                       
                         String choice = Console.ReadLine();
                         int validatedChoice;
 
@@ -174,6 +263,8 @@ namespace QuizA.HttpCalls
 
                       
                     }
+
+
                     for (int ans = 0; ans < correctAnwersTracker.Count; ans++) 
                     {
 
@@ -278,7 +369,7 @@ namespace QuizA.HttpCalls
                     {
 
                         colored.printColoredMessages($"\n Would you like a detailed view of your performance on the quiz? " +
-                            $"This also shows the correct answer for each question. [Y/N] Y for Yes, N for No: ", ConsoleColor.Magenta, false);
+                            $"This also shows the correct answer for each question. [Y/N] Y for Yes, N for No: ", ConsoleColor.White, false);
                         if (Console.ReadLine().ToUpper() == "Y")
                         {
                             quizSummary = true;
