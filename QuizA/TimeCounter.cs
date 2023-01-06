@@ -59,7 +59,8 @@ namespace QuizA
         //}
 
 
-        public static int TotalQuizTime(int quizCount = 0) {
+        public static int TotalQuizTime(int quizCount = 0)
+        {
 
             int questLen;
 
@@ -90,14 +91,14 @@ namespace QuizA
         }
 
 
-       public static void stopTimer()
+        public static void stopTimer()
         {
             //\n //TimeCounter.QuestLen * Quizes.Count
-            if (Sec >= QuestLen)  
+            if (Sec >= QuestLen)
             {
                 Tracker = !Tracker;
 
-                
+
                 Console.ForegroundColor = ConsoleColor.DarkRed;
 
                 Console.WriteLine($"\n \t\t\t\t Quiz has Ended. Time spent is: {QuestLen} seconds!");
@@ -138,6 +139,16 @@ namespace QuizA
 
         }
 
+        public static void resetTimer()
+        {
+            MilSec = 0;
+            Sec = 0;
+            Min = 0;
+            IsActive = false;
+
+
+        }
+
 
 
         public static void Timer_Elapsed(object sender, ElapsedEventArgs e)
@@ -157,7 +168,7 @@ namespace QuizA
 
                     }
                 }
-                string timeDisplay = String.Format("{0:00}", MilSec) + " millisecs" + " : " + String.Format("{0:00}", Sec) + " Secs "  + " : " + String.Format("{0:00}", Min) + " Min ";  //) + " : " + String.Format("{0:00}", Min
+                string timeDisplay = String.Format("{0:00}", MilSec) + " millisecs" + " : " + String.Format("{0:00}", Sec) + " Secs " + " : " + String.Format("{0:00}", Min) + " Min ";  //) + " : " + String.Format("{0:00}", Min
                 Console.CursorLeft = QuestionLength + 45;
                 Console.Write("Time: {0}  :", timeDisplay);
                 stopTimer();

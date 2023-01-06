@@ -1,6 +1,7 @@
 ﻿using QuizA.HttpCalls;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -31,7 +32,7 @@ namespace QuizA
             String[] itemArray,
             String arrayName
             )
-        
+
         {
             int validatedOutput;
 
@@ -39,7 +40,7 @@ namespace QuizA
 
             //This checks if the input is not empty
             while ((!int.TryParse(userInput, out validatedOutput)) || (String.IsNullOrEmpty(userInput)))
-            {    
+            {
                 colored.printColoredMessages($"\n You supplied a non-existent {arrayName} number or invalid entry" +
                        $"\n Please select a valid {arrayName} number from the above listed and  try again  !!", ConsoleColor.Red, false);
 
@@ -66,7 +67,7 @@ namespace QuizA
 
                         break;
                     }
-                   
+
 
                 }
 
@@ -77,11 +78,49 @@ namespace QuizA
 
         }
 
+
+        static public void RequestQuizHistory()
+        {
+            Helpers.ColoredMessage colored = new Helpers.ColoredMessage();
+
+            const string format = "dd/MM/yyyy";
+            DateTime dateOutput;
+
+            if (Helpers.Logger.pathExist())
+            {
+                string logMessage = "\n \t\t\t\t Would you like to search for your quiz history ? \n \t\t\t\t If yes, please supply a date you would like to search.\n \t\t\t\t It should be in the form 05/01/2022." +
+                " \n \t\t\t\t You would get all your quiz history for these days. \n \t\t\t\t [Y/N] Y for Yes, N for No";
+
+
+                colored.printColoredMessages($"{logMessage} :", ConsoleColor.Green, false);
+
+                string logResponse = Console.ReadLine().ToUpper();
+                if (!String.IsNullOrEmpty(logResponse) && logResponse == "Y")
+                {
+                    colored.printColoredMessages("\n \t\t\t\t Please provide your date to search from in (dd / MM / yyyy).\n \t\t\t\t E.g 05/01/2023  format :", ConsoleColor.Green, false);
+                    string searchText = Console.ReadLine();
+
+                    if (DateTime.TryParseExact(searchText, format, CultureInfo.InvariantCulture, DateTimeStyles.None, out dateOutput))
+                    {
+
+                        Helpers.Logger.DisplayLines(searchText);
+
+                    }
+                    else
+                    {
+                        colored.printColoredMessages("The date you provided is not a valid date or not in the right format!", ConsoleColor.Red, true);
+
+                    }
+                }
+            }
+        }
+
+
         static public void QuizInstructions()
         {
             Helpers.ColoredMessage colored = new Helpers.ColoredMessage();
 
-            
+
 
             String author = "Joshua Ajayi Adewale, N1048457";
             String version = "1.0.0";
@@ -97,7 +136,9 @@ namespace QuizA
 
             colored.printColoredMessages("\n***************************************************Instructions********************************************* ");
             colored.printColoredMessages(message);
-            colored.printColoredMessages(requiresInternet.ToUpper(), ConsoleColor.Red);
+            colored.printColoredMessages(requiresInternet.ToUpper(), ConsoleColor.DarkGray);
+
+            RequestQuizHistory();
 
             String[] category = { "General Knowledge", "Entertainment:Books", "Entertainment: Film", "Entertainment: Music",
                 "Entertainment: Musicals & Theatres", "Entertainment: Television", "Entertainment: Video Games",
@@ -126,10 +167,12 @@ namespace QuizA
             int difficultyLevelSelected;
             int questionTypeSelected;
 
-            string catMssg = "These are the categories to select from. Please choose a category by selecting the appropriate number from " +
-                "the below given options : ";
+            string catMssg = "\n \t\t\t\t These are the categories to select from. \n \t\t\t\t Please choose a category by selecting the appropriate number from " +
+                "\n \t\t\t\t the below given options : ";
 
             colored.printColoredMessages(catMssg, ConsoleColor.White);
+
+
 
             colored.printColoredMessages("\n \t\t\t\t**********************************CATEGORIES****************************", ConsoleColor.Green);
 
@@ -147,9 +190,9 @@ namespace QuizA
             //it must be a valid entry and must not be an empty character
             try
             {
-              
 
-                validatedCategoryNumber =  ValidateUserInputs(categorySelected, minCategorySelected, category, "category");
+
+                validatedCategoryNumber = ValidateUserInputs(categorySelected, minCategorySelected, category, "category");
 
 
                 if (validatedCategoryNumber >= minCategorySelected && validatedCategoryNumber <= category.Length)
@@ -235,10 +278,10 @@ namespace QuizA
                 string userSelectedQuizNo = Console.ReadLine();
 
                 //while supplied input is not an interger or its empty, it will ask input to be supplied again!
-                while ( !(int.TryParse(userSelectedQuizNo, out validatedAmountOfQuestions))
-                    && String.IsNullOrEmpty(userSelectedQuizNo) || ( validatedAmountOfQuestions < minQuestionNo) 
+                while (!(int.TryParse(userSelectedQuizNo, out validatedAmountOfQuestions))
+                    && String.IsNullOrEmpty(userSelectedQuizNo) || (validatedAmountOfQuestions < minQuestionNo)
                     || (validatedAmountOfQuestions > maxQuestionNo)
-                    ) 
+                    )
                 {
                     string Mssg = $"ERROR!!!! You selected: {validatedAmountOfQuestions} questions to answer, which is not a valid entry, choose again!!";
 
@@ -253,9 +296,9 @@ namespace QuizA
 
                         selectedShownMssg = questionMinMssg;
 
-                        colored.printColoredMessages(selectedShownMssg, ConsoleColor.Red,false);
+                        colored.printColoredMessages(selectedShownMssg, ConsoleColor.Red, false);
                     }
-                    else 
+                    else
                     {
                         selectedShownMssg = questionMaxMssg;
 
@@ -275,16 +318,6 @@ namespace QuizA
 
                 colored.printColoredMessages(successQuestionAmountMssg, ConsoleColor.Green, false);
 
-
-                /*colored.printColoredMessages("\n Summary of your selections are as follows :", ConsoleColor.DarkBlue);*/
-
-
-
-                /*colored.printColoredMessages($"(1).Question Category selected : {category[validatedCategoryNumber - 1]}", ConsoleColor.Green, false);
-                colored.printColoredMessages($"(2).Question Type selected : {questionTypes[questionTypeSelected - 1]}", ConsoleColor.Green, false);
-                colored.printColoredMessages($"(3).Question difficulty selected : {difficulties[difficultyLevelSelected - 1]}", ConsoleColor.Green, false);
-                colored.printColoredMessages($"(4).Amount of questions to answer : {questionAmount}", ConsoleColor.Green, false);
-*/
                 //set all the properties of the instruction classes
                 Category = categoryNoValue.ToString();
                 //category[validatedCategoryNumber - 1];
@@ -297,8 +330,6 @@ namespace QuizA
             {
                 colored.printColoredMessages($"{error.Message}!", ConsoleColor.Red, false);
             }
-
-
 
             //Console.ReadKey();
 

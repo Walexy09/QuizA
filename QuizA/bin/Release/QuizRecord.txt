@@ -34,3 +34,45 @@ WRONG ANSWERS: 7
 
 YOUR PERCENTAGE SCORE: 30 %
 **********END****************
+**********User Quiz Taken On 05/01/2023 19:51:24 *************
+
+QUIZ SCORE 
+
+SUBJECT: SPORTS. 
+
+TIME TO COMPLETE QUIZ : 53 SECONDS 
+
+CORRECT ANSWERS : 3  
+
+WRONG ANSWERS: 12 
+
+YOUR PERCENTAGE SCORE: 20 %
+**********END****************
+**********User Quiz Taken On 05/01/2023 20:34:43 *************
+
+QUIZ SCORE 
+
+SUBJECT: SCIENCE: COMPUTERS. 
+
+TIME TO COMPLETE QUIZ : 11 SECONDS 
+
+CORRECT ANSWERS : 4  
+
+WRONG ANSWERS: 6 
+
+YOUR PERCENTAGE SCORE: 40 %
+**********END****************
+**********User Quiz Taken On 05/01/2023 21:01:38 *************
+
+QUIZ SCORE 
+
+SUBJECT: ENTERTAINMENT: COMICS. 
+
+TIME TO COMPLETE QUIZ : 29 SECONDS 
+
+CORRECT ANSWERS : 2  
+
+WRONG ANSWERS: 8 
+
+YOUR PERCENTAGE SCORE: 20 %
+**********END****************

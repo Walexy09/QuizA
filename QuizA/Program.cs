@@ -14,7 +14,8 @@ namespace QuizA
             bool retakeQuiz = true;
             String userResponse = "Y";
 
-            while (retakeQuiz && userResponse =="Y") {
+            while (retakeQuiz && userResponse == "Y")
+            {
 
                 //This prints out the quiz instruction before starting
                 Instructions.QuizInstructions();
@@ -66,37 +67,39 @@ namespace QuizA
                 }
                 else
                 {
-                    colored.printColoredMessages($"\n \t\t\t\t  No quizes found, please rechoose your options or reduce the number of questions requested!", ConsoleColor.Red);
+                    colored.printColoredMessages($"\n \t\t\t\t  No quizes found, please rechoose your options or\n\n \t\t\t\t  reduce the number of questions requested!", ConsoleColor.Red);
 
                 }
 
 
                 colored.printColoredMessages($"\n \t\t\t\t  Would you like to retake the quiz? , [Y/N] Y for Yes, N for No:  ", ConsoleColor.White, false);
 
-               
+
 
                 userResponse = Console.ReadLine().ToUpper();
 
                 if (userResponse == "Y")
                 {
                     retakeQuiz = true;
+                    TimeCounter.resetTimer();
 
                 }
-                else 
+                else
                 {
                     retakeQuiz = false;
-                    colored.printColoredMessages($"\n \t\t\t\t \n Quitting application now....", ConsoleColor.DarkYellow);
+                    colored.printColoredMessages($"\n \t\t\t\t Thank you for your time taking the Quiz." +
+                        $"\n\n \t\t\t\t Quitting Quiz Application now, Bye!!!", ConsoleColor.DarkYellow);
                     Console.ReadKey();
                     break;
                 }
 
 
 
-                
+
             }
 
 
-            
+
 
 
         }  //main function ends

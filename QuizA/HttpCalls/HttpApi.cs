@@ -23,7 +23,7 @@ namespace QuizA.HttpCalls
 
     class HttpApi
     {
-        static public List<Quiz> Quizes {get; set;}
+        static public List<Quiz> Quizes { get; set; }
 
         static public async Task RunAsync(String category, String type, String amount, String difficulty)
         {
@@ -38,12 +38,12 @@ namespace QuizA.HttpCalls
                 int elapeTimeCounter = 0;
 
                 //This sets a new timer and sets the interval to 10 milisecs
-               // Timer questionTimer = TimeCounter.MyTimer;
+                // Timer questionTimer = TimeCounter.MyTimer;
                 TimeCounter.MyTimer = new Timer(timeInterval);
                 //TimeCounter.MyTimer.Interval = timeInterval;  
 
                 int nOfQuest = 0;
-                
+
                 //use this to keep track of all chosen answers, both correct and incorrect
                 List<String> quizTakerChosenAnswersToQuestions = new List<string>();
 
@@ -67,13 +67,13 @@ namespace QuizA.HttpCalls
 
                 Helpers.ColoredMessage colored = new Helpers.ColoredMessage();
 
-                var query = new Dictionary<string, string>()
+                var query = new Dictionary<string, string>()  //create a new dictionary for the API parameters
                 {
-                   ["category"] = category,
-                   ["amount"] = amount,
-                   ["difficulty"] = difficulty.ToLower(),
-                   ["type"] = type.ToLower()
-            };
+                    ["category"] = category,
+                    ["amount"] = amount,
+                    ["difficulty"] = difficulty.ToLower(),
+                    ["type"] = type.ToLower()
+                };
 
                 //Source of this:https://makolyte.com/csharp-sending-query-strings-with-httpclient/
                 //QueryHelpers.AddQueryString() (from Microsoft.AspNetCore.WebUtilities
@@ -83,16 +83,16 @@ namespace QuizA.HttpCalls
                 colored.printColoredMessages($"Url Endpoint obtained: {urlEndPoint}", ConsoleColor.White);
 
                 HttpResponseMessage response = await client.GetAsync(urlEndPoint);
-                
+
 
                 if (response.IsSuccessStatusCode)
                 {
-                   
+
                     QuizResponse quizResponse = await response.Content.ReadAsAsync<QuizResponse>();
 
                     List<Quiz> QuizesObtained = quizResponse.response_code == 0 ? quizResponse.results : new List<Quiz>();
 
-                    Quizes = QuizesObtained.Count > 0 ? QuizesObtained : new List<Quiz>{};
+                    Quizes = QuizesObtained.Count > 0 ? QuizesObtained : new List<Quiz> { };
 
                     List<int> timeToCompleteQuiz = new List<int>();
 
@@ -101,7 +101,8 @@ namespace QuizA.HttpCalls
                     {
                         nOfQuest = Quizes.Count;
                     }
-                    else {
+                    else
+                    {
                         nOfQuest = 0;
                     }
 
@@ -122,15 +123,15 @@ namespace QuizA.HttpCalls
 
 
                     //if questions were found, ask the user to press the ENTER KEY to start the quizes, which also starts the question timer
-                    if (Quizes.Count > 0) 
+                    if (Quizes.Count > 0)
                     {
-                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.ForegroundColor = ConsoleColor.DarkBlue;
                         Console.WriteLine($"\n \t\t\t\t You have {TimeCounter.TotalQuizTime(Quizes.Count)} seconds for all the {(Quizes.Count)} questions " +
-                            $" or {TimeCounter.TotalQuizTime(Quizes.Count) / (Quizes.Count)} seconds per question  " +
-                            $"or {Math.Round ((double)TimeCounter.TotalQuizTime(Quizes.Count) / (double) 60, 1)} mins to answer all the {(Quizes.Count)} questions ");
+                            $" \n\n \t\t\t\t or {TimeCounter.TotalQuizTime(Quizes.Count) / (Quizes.Count)} seconds per question  " +
+                            $" \n\n \t\t\t\t or {Math.Round((double)TimeCounter.TotalQuizTime(Quizes.Count) / (double)60, 1)} mins to answer all the {(Quizes.Count)} questions ");
                         Console.ResetColor();
 
-                        Console.WriteLine($"\n \t\t\t\t If You are ready to BEGIN the Challenge, please press the ENTER key ");
+                        Console.WriteLine($"\n \t\t\t\t WHEN You are ready to BEGIN the QUIZ Challenge, please press the ENTER key ");
 
                         if (Console.ReadKey().Key == ConsoleKey.Enter)
                         {
@@ -142,8 +143,9 @@ namespace QuizA.HttpCalls
 
                             for (var i = 0; i < Quizes.Count; i++)
                             {
+                                string formatedQuestion = ReplaceAllQuotedText(Quizes[i].question);
 
-                                colored.printColoredMessages($"\n Question {i + 1}: {Quizes[i].question} ", ConsoleColor.DarkYellow);
+                                colored.printColoredMessages($"\n Question {i + 1}: {formatedQuestion} ", ConsoleColor.DarkYellow);
                                 colored.printColoredMessages($"Options: ", ConsoleColor.DarkYellow);
 
                                 Quizes[i].incorrect_answers.Add(Quizes[i].correct_answer); //add the correct answer to
@@ -193,7 +195,7 @@ namespace QuizA.HttpCalls
 
                                 }
 
-                                int timeUp = (int) TimeCounter.TotalQuizTime(Quizes.Count) / 60;
+                                int timeUp = (int)TimeCounter.TotalQuizTime(Quizes.Count) / 60;
 
 
                                 if ((validatedChoice >= minChoiceAns && validatedChoice < maxChoiceAns) && (TimeCounter.Tracker == false)
@@ -221,7 +223,7 @@ namespace QuizA.HttpCalls
                                     }
 
 
-                                    if ((i + 1) == Quizes.Count) 
+                                    if ((i + 1) == Quizes.Count)
                                     {
                                         Console.ForegroundColor = ConsoleColor.DarkCyan;
                                         //This means we have gotten to the end of the quiz. stop the time and exit
@@ -363,7 +365,8 @@ namespace QuizA.HttpCalls
                             {
 
                                 colored.printColoredMessages($"\n \t\t\t\t Would you like a detailed view of your performance on the quiz? " +
-                                    $"\n This also shows the correct answer for each question. [Y/N] Y for Yes, N for No: ", ConsoleColor.White, false);
+                                    $"\n \t\t\t\t This also shows the correct answer for each question. " +
+                                    $"\n \t\t\t\t [Y/N] Y for Yes, N for No: ", ConsoleColor.White, false);
                                 if (Console.ReadLine().ToUpper() == "Y")
                                 {
                                     quizSummary = true;
@@ -372,8 +375,9 @@ namespace QuizA.HttpCalls
                                     {
                                         for (var i = 0; i < Quizes.Count; i++)
                                         {
+                                            string formatedQuestion = ReplaceAllQuotedText(Quizes[i].question);
 
-                                            colored.printColoredMessages($"\n Question  ({i + 1}): {Quizes[i].question}", ConsoleColor.DarkGray, true);
+                                            colored.printColoredMessages($"\n Question  ({i + 1}): {formatedQuestion}", ConsoleColor.DarkGray, true);
                                             colored.printColoredMessages($"---------------------------------------------------------------------------------------", ConsoleColor.White, true);
 
                                             for (int ans = 0; ans < quizTakerChosenAnswersToQuestions.Count; ans++)
@@ -409,9 +413,6 @@ namespace QuizA.HttpCalls
                             }
 
 
-
-
-
                             TimeCounter.MyTimer.Dispose();
 
                             Console.WriteLine($" \n \t\t\t\t  Time Taken to complete the Quiz is {TimeCounter.Sec} seconds ");
@@ -421,26 +422,40 @@ namespace QuizA.HttpCalls
 
                     }
 
-                   
-
-
-                   
-
-
-                    
-
-                    
-
-
-
-
-
                 }
-
-               
 
             }
         }
+
+
+        static string ReplaceAllQuotedText(string text)
+        {
+            while (true)
+            {
+                // Find the index of the first &quot; character
+                int startIndex = text.IndexOf("&quot;");
+                if (startIndex == -1)
+                {
+                    // &quot; not found, return the modified text
+                    return text;
+                }
+
+                // Find the index of the second &quot; character
+                int endIndex = text.IndexOf("&quot;", startIndex + 1);
+                if (endIndex == -1)
+                {
+                    // &quot; not found, return the modified text
+                    return text;
+                }
+
+                // Get the quoted text
+                string quotedText = text.Substring(startIndex + "&quot;".Length, endIndex - startIndex - "&quot;".Length);
+
+                // Replace the quoted text with itself, removing the &quot; characters
+                text = text.Substring(0, startIndex) + quotedText + text.Substring(endIndex + "&quot;".Length);
+            }
+        }
+
     }
 
 }

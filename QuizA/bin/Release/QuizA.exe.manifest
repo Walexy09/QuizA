@@ -102,14 +102,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="QuizA.exe" size="31656">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="QuizA.exe" size="34216">
       <assemblyIdentity name="QuizA" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>5G4CDsQjPq5MdXgfjSFLpD/cNxNOqOxXNWnmQ4H0XXA=</dsig:DigestValue>
+        <dsig:DigestValue>7MUIeS3nSPQ6NOGsZZgvuayp0mvGkMKuZ2d1FaRLj5o=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
